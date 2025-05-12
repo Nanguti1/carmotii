@@ -68,10 +68,12 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost">Login</Button>
+                  <Button variant="ghost" className="cursor-pointer">
+                    Login
+                  </Button>
                 </Link>
                 <Link href="/register">
-                  <Button>Register</Button>
+                  <Button className="cursor-pointer">Register</Button>
                 </Link>
               </>
             )}
@@ -129,9 +131,7 @@ export default function Navbar() {
                       </Button>
                     </Link>
                     <Link href="/register">
-                      <Button className="w-full justify-start">
-                        Register
-                      </Button>
+                      <Button className="w-full justify-start">Register</Button>
                     </Link>
                   </>
                 )}
@@ -142,4 +142,4 @@ export default function Navbar() {
       </AnimatePresence>
     </nav>
   );
-} 
+}
