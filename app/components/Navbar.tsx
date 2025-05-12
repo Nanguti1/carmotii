@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 const menuItems = [
   { name: "Home", href: "/" },
   { name: "Browse Cars", href: "/browse" },
-  { name: "Become a Host", href: "/host" },
+  { name: "Become a Host", href: "/become-host" },
   { name: "How It Works", href: "/how-it-works" },
   { name: "Pricing & Plans", href: "/pricing" },
   { name: "Support", href: "/support" },
