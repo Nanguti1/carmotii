@@ -141,17 +141,21 @@ function Hero() {
           >
             <Button
               size="lg"
-              className="group bg-blue-500 px-8 py-6 text-lg font-semibold hover:bg-blue-600"
+              className="group relative cursor-pointer overflow-hidden bg-blue-500 px-8 py-6 text-lg font-semibold transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/25"
             >
-              Get Started
-              <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <span className="relative z-10 flex items-center">
+                Get Started
+                <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 -z-10 translate-y-full bg-blue-600 transition-transform duration-300 group-hover:translate-y-0" />
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="border-white/20 bg-white/10 px-8 py-6 text-lg font-semibold text-white backdrop-blur-sm hover:bg-white/20"
+              className="group relative cursor-pointer overflow-hidden border-white/20 bg-white/10 px-8 py-6 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10"
             >
-              Learn More
+              <span className="relative z-10">Learn More</span>
+              <div className="absolute inset-0 -z-10 translate-y-full bg-white/20 transition-transform duration-300 group-hover:translate-y-0" />
             </Button>
           </motion.div>
         </motion.div>
@@ -202,7 +206,7 @@ function CarCard({ car }: { car: CarType }) {
         </div>
         <CardDescription className="mt-1">{car.location}</CardDescription>
         <div className="mt-4 text-xl font-bold text-blue-600">
-          ${car.price}{" "}
+          Kes. {car.price}{" "}
           <span className="text-sm font-normal text-gray-500">/day</span>
         </div>
       </CardContent>
@@ -210,12 +214,17 @@ function CarCard({ car }: { car: CarType }) {
         <Button
           variant="outline"
           size="sm"
-          className="group-hover:border-blue-500 group-hover:text-blue-500"
+          className="group relative cursor-pointer overflow-hidden border-gray-200 transition-all duration-300 hover:border-blue-500 hover:text-blue-500 hover:shadow-sm"
         >
-          Details
+          <span className="relative z-10">Details</span>
+          <div className="absolute inset-0 -z-10 translate-y-full bg-blue-50 transition-transform duration-300 group-hover:translate-y-0" />
         </Button>
-        <Button size="sm" className="bg-blue-500 hover:bg-blue-600">
-          Book Now
+        <Button
+          size="sm"
+          className="group relative cursor-pointer overflow-hidden bg-blue-500 transition-all duration-300 hover:bg-blue-600 hover:shadow-sm hover:shadow-blue-500/25"
+        >
+          <span className="relative z-10">Book Now</span>
+          <div className="absolute inset-0 -z-10 translate-y-full bg-blue-600 transition-transform duration-300 group-hover:translate-y-0" />
         </Button>
       </CardFooter>
     </Card>
@@ -270,7 +279,7 @@ function FeaturedCars() {
           id: "1",
           name: "Tesla Model 3",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 120,
+          price: 12000,
           rating: 4.9,
           location: "San Francisco, CA",
         },
@@ -278,7 +287,7 @@ function FeaturedCars() {
           id: "2",
           name: "BMW i4",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 150,
+          price: 15000,
           rating: 4.7,
           location: "Los Angeles, CA",
         },
@@ -286,7 +295,7 @@ function FeaturedCars() {
           id: "3",
           name: "Mercedes EQS",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 200,
+          price: 20000,
           rating: 4.8,
           location: "New York, NY",
         },
@@ -294,7 +303,7 @@ function FeaturedCars() {
           id: "4",
           name: "Audi e-tron",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 180,
+          price: 18000,
           rating: 4.6,
           location: "Chicago, IL",
         },
@@ -302,7 +311,7 @@ function FeaturedCars() {
           id: "5",
           name: "Porsche Taycan",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 250,
+          price: 25000,
           rating: 4.9,
           location: "Miami, FL",
         },
@@ -310,7 +319,7 @@ function FeaturedCars() {
           id: "6",
           name: "Ford Mustang Mach-E",
           image: carImages[Math.floor(Math.random() * carImages.length)],
-          price: 160,
+          price: 16000,
           rating: 4.7,
           location: "Seattle, WA",
         },
@@ -678,10 +687,13 @@ function CallToAction() {
           >
             <Button
               size="lg"
-              className="bg-white px-8 py-6 text-lg font-semibold text-blue-600 hover:bg-blue-50"
+              className="group relative cursor-pointer overflow-hidden bg-white px-8 py-6 text-lg font-semibold text-blue-600 transition-all duration-300 hover:bg-blue-50 hover:shadow-lg hover:shadow-white/25"
             >
-              Become a Host
-              <ChevronRight className="ml-2 h-5 w-5" />
+              <span className="relative z-10 flex items-center">
+                Become a Host
+                <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 -z-10 translate-y-full bg-blue-50 transition-transform duration-300 group-hover:translate-y-0" />
             </Button>
           </motion.div>
         </motion.div>
