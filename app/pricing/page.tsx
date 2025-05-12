@@ -23,6 +23,7 @@ import {
   Clock,
   Car,
   HelpCircle,
+  ChevronRight,
 } from "lucide-react";
 
 // Pricing plans data
@@ -151,20 +152,72 @@ export default function Pricing() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative h-[33vh] w-full overflow-hidden">
+        {/* Background Image with Parallax Effect */}
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/images/car-10.jpg')",
+              transform: "scale(1.1)",
+            }}
+          />
+        </motion.div>
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+
+        {/* Content */}
+        <div className="relative z-20 flex h-full w-full flex-col items-center justify-center px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center text-white"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl"
           >
-            <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
-              Simple, Transparent Pricing
-            </h1>
-            <p className="mt-4 text-lg text-blue-100">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl"
+            >
+              Simple,{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                Transparent
+              </span>{" "}
+              Pricing
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-4 text-lg text-gray-200 sm:text-xl"
+            >
               Choose the perfect plan for your car sharing needs
-            </p>
+            </motion.p>
+          </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="flex flex-col items-center text-white/50"
+            >
+              <span className="text-sm">Scroll to explore</span>
+              <ChevronRight className="h-5 w-5 rotate-90" />
+            </motion.div>
           </motion.div>
         </div>
       </section>

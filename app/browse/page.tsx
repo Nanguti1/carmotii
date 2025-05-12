@@ -456,41 +456,92 @@ export default function BrowseCars() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative h-[33vh] w-full overflow-hidden">
+        {/* Background Image with Parallax Effect */}
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/images/car-9.jpg')",
+              transform: "scale(1.1)",
+            }}
+          />
+        </motion.div>
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+
+        {/* Content */}
+        <div className="relative z-20 flex h-full w-full flex-col items-center justify-center px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center text-white"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl"
           >
-            <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
-              Browse Our Fleet
-            </h1>
-            <p className="mt-4 text-lg text-blue-100">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl"
+            >
+              Browse Our{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                Fleet
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-4 text-lg text-gray-200 sm:text-xl"
+            >
               Find the perfect car for your next adventure
-            </p>
+            </motion.p>
+
+            {/* Search Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="mx-auto mt-6 max-w-2xl"
+            >
+              <div className="relative">
+                <Input
+                  type="text"
+                  placeholder="Search cars..."
+                  value={filters.search}
+                  onChange={(e) =>
+                    setFilters({ ...filters, search: e.target.value })
+                  }
+                  className="h-12 rounded-full border-0 bg-white/10 pl-12 pr-4 text-white placeholder:text-white/70 backdrop-blur-sm"
+                />
+                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/70" />
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Search Bar */}
+          {/* Scroll Indicator */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-8 max-w-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
           >
-            <div className="relative">
-              <Input
-                type="text"
-                placeholder="Search cars..."
-                value={filters.search}
-                onChange={(e) =>
-                  setFilters({ ...filters, search: e.target.value })
-                }
-                className="h-12 rounded-full border-0 bg-white/10 pl-12 pr-4 text-white placeholder:text-white/70 backdrop-blur-sm"
-              />
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/70" />
-            </div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="flex flex-col items-center text-white/50"
+            >
+              <span className="text-sm">Scroll to explore</span>
+              <ChevronRight className="h-5 w-5 rotate-90" />
+            </motion.div>
           </motion.div>
         </div>
       </section>
