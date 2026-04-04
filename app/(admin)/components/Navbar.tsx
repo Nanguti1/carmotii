@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { 
   Menu, 
@@ -9,6 +10,8 @@ import {
   Search,
   User,
   ChevronDown,
+  Home,
+  ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +49,16 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
 
       {/* Right side items */}
       <div className="flex items-center gap-x-4">
+        {/* Visit Site Link */}
+        <Link 
+          href="/" 
+          className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+          title="Visit Main Site"
+        >
+          <Home className="h-4 w-4" />
+          <span className="hidden sm:inline">Visit Site</span>
+        </Link>
+
         {/* Notifications */}
         <button className="relative p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors">
           <Bell className="h-5 w-5" />
