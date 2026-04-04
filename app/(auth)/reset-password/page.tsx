@@ -103,7 +103,7 @@ export default function ResetPasswordPage() {
         </CardContent>
         <CardFooter>
           <Link
-            href="/auth/login"
+            href="/login"
             className="flex items-center text-sm text-gray-600 hover:text-gray-900"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
