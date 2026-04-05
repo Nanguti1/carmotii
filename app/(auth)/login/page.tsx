@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Car } from "lucide-react";
+import { apiClient } from "@/lib/axiosClient";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,25 +26,20 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        router.push("/browse");
+      const response = await apiClient.auth.login(formData);
+      
+      // Store token
+      localStorage.setItem('auth_token', response.data.token);
+      
+      // Redirect based on user role
+      const user = response.data.user;
+      if (user.roles.includes('admin')) {
+        router.push('/admin');
       } else {
-        setError(data.message || "Login failed");
+        router.push('/dashboard');
       }
-    } catch (err) {
-      setError("Network error. Please try again.");
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

@@ -12,6 +12,7 @@ import {
   Calendar,
   BarChart3
 } from "lucide-react";
+import { apiClient } from "@/lib/axiosClient";
 
 interface AnalyticsData {
   totalViews: number;
@@ -40,20 +41,21 @@ export default function AdminAnalyticsPage() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        // Mock data - in real app, fetch from API
-        setTimeout(() => {
-          setData({
-            totalViews: 45678,
-            uniqueVisitors: 12456,
-            avgSessionDuration: "4:32",
-            bounceRate: 32.5,
-            pageViews: 89234,
-            conversionRate: 12.8,
-            revenueGrowth: 23.4,
-            userGrowth: 18.2,
-          });
-          setIsLoading(false);
-        }, 1000);
+        const response = await apiClient.analytics.dashboard();
+        
+        // Transform API data to match our interface
+        const analyticsData = response.data.analytics;
+        setData({
+          totalViews: analyticsData.users?.total || 0,
+          uniqueVisitors: analyticsData.users?.active || 0,
+          avgSessionDuration: "4:32", // Mock data
+          bounceRate: 32.5, // Mock data
+          pageViews: analyticsData.bookings?.total || 0,
+          conversionRate: 12.8, // Mock data
+          revenueGrowth: analyticsData.growth?.revenue || 0,
+          userGrowth: analyticsData.growth?.users || 0,
+        });
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch analytics:", error);
         setIsLoading(false);

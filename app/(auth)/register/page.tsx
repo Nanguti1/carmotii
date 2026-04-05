@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Car, UserPlus } from "lucide-react";
+import { apiClient } from "@/lib/axiosClient";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -31,25 +32,15 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        router.push("/browse");
-      } else {
-        setError(data.message || "Registration failed");
-      }
-    } catch (err) {
-      setError("Network error. Please try again.");
+      const response = await apiClient.auth.register(formData);
+      
+      // Store token
+      localStorage.setItem('auth_token', response.data.token);
+      
+      // Redirect to dashboard
+      router.push('/dashboard');
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

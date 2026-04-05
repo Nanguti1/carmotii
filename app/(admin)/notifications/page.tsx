@@ -19,6 +19,7 @@ import {
   Eye,
   Calendar as CalendarIcon
 } from "lucide-react";
+import { apiClient } from "@/lib/axiosClient";
 
 interface Notification {
   id: string;
@@ -40,70 +41,9 @@ export default function AdminNotificationsPage() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        // Mock data - in real app, fetch from API
-        const mockNotifications: Notification[] = [
-          {
-            id: "1",
-            title: "New Car Listing",
-            message: "John Doe submitted a new car listing for approval",
-            type: "info",
-            category: "booking",
-            isRead: false,
-            createdAt: "2024-04-04T10:30:00Z",
-            actionUrl: "/admin/cars",
-          },
-          {
-            id: "2",
-            title: "Payment Received",
-            message: "M-Pesa payment of KES 4,500 received for booking #1234",
-            type: "success",
-            category: "payment",
-            isRead: false,
-            createdAt: "2024-04-04T09:15:00Z",
-            actionUrl: "/admin/bookings",
-          },
-          {
-            id: "3",
-            title: "User Verification Required",
-            message: "5 users are pending identity verification",
-            type: "warning",
-            category: "user",
-            isRead: true,
-            createdAt: "2024-04-04T08:45:00Z",
-            actionUrl: "/admin/users",
-          },
-          {
-            id: "4",
-            title: "System Update",
-            message: "Platform maintenance scheduled for tonight at 2:00 AM",
-            type: "info",
-            category: "system",
-            isRead: true,
-            createdAt: "2024-04-03T16:20:00Z",
-          },
-          {
-            id: "5",
-            title: "Booking Cancellation",
-            message: "High-value booking #1235 was cancelled by user",
-            type: "error",
-            category: "booking",
-            isRead: false,
-            createdAt: "2024-04-03T14:30:00Z",
-            actionUrl: "/admin/bookings",
-          },
-          {
-            id: "6",
-            title: "Revenue Milestone",
-            message: "Monthly revenue target achieved! KES 2.8M generated",
-            type: "success",
-            category: "payment",
-            isRead: true,
-            createdAt: "2024-04-03T11:00:00Z",
-          },
-        ];
-
-        setNotifications(mockNotifications);
-        setFilteredNotifications(mockNotifications);
+        const response = await apiClient.notifications.list();
+        setNotifications(response.data.notifications);
+        setFilteredNotifications(response.data.notifications);
         setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
@@ -125,6 +65,20 @@ export default function AdminNotificationsPage() {
 
     setFilteredNotifications(filtered);
   }, [filter, notifications]);
+
+  const handleMarkAsRead = async (id: string) => {
+    try {
+      await apiClient.notifications.markAsRead(parseInt(id));
+      setNotifications(notifications.map(n => 
+        n.id === id ? { ...n, isRead: true } : n
+      ));
+      setFilteredNotifications(filteredNotifications.map(n => 
+        n.id === id ? { ...n, isRead: true } : n
+      ));
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
+    }
+  };
 
   const getTypeIcon = (type: string) => {
     switch (type) {
